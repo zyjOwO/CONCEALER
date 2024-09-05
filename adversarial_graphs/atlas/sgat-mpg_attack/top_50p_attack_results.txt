@@ -1,0 +1,3 @@
+evasion_rate: {'sgat': 0.0, 'fga_gcn': 0.001875, 'fga_gat': 0.0, 'flash': 0.0}
+decrease_rate: {'sgat': 0.0, 'fga_gcn': 0.07022394336628629, 'fga_gat': 0.8793980302816875, 'flash': 0.6234530667400534}
+total_perturbation: {'sgat': 0.895788646429382, 'fga_gcn': 0.7985770166111666, 'fga_gat': 0.8008495978682739, 'flash': 0.8663457644521813}
