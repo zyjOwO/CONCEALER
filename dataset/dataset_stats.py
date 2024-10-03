@@ -1,8 +1,9 @@
 # Dataset statistics
-import pickle as pkl
 from pathlib import Path
 
 import numpy as np
+
+from blosc_compress import blosc_pkl_load
 
 
 def stats(dataset_name):
@@ -13,21 +14,17 @@ def stats(dataset_name):
     n_edges = []
     n_benign_graphs = np.zeros((1,), dtype=np.int64)[0]
     n_malicious_graphs = np.zeros((1,), dtype=np.int64)[0]
-    for graph_path in benign_dir.glob('*.pkl'):
-        with graph_path.open('rb') as f:
-            nx_graph = pkl.load(f)
+    for graph_path in benign_dir.glob('*.blosc'):
+        nx_graph = blosc_pkl_load(graph_path)
         n_nodes.append(nx_graph.number_of_nodes())
         n_edges.append(nx_graph.number_of_edges())
         n_benign_graphs += 1
-    for graph_path in malicious_dir.glob('*.pkl'):
-        with graph_path.open('rb') as f:
-            nx_graph = pkl.load(f)
+    for graph_path in malicious_dir.glob('*.blosc'):
+        nx_graph = blosc_pkl_load(graph_path)
         n_nodes.append(nx_graph.number_of_nodes())
         n_edges.append(nx_graph.number_of_edges())
         n_malicious_graphs += 1
-    print(
-        f'n_nodes: {sum(n_nodes)}; n_edges: {sum(n_edges)}; n_benign_graphs: {n_benign_graphs}; n_malicious_graphs: {n_malicious_graphs}'
-    )
+    print(f'n_nodes: {sum(n_nodes)}; n_edges: {sum(n_edges)}; n_benign_graphs: {n_benign_graphs}; n_malicious_graphs: {n_malicious_graphs}')
     return
 
 
