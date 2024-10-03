@@ -1,0 +1,30 @@
+model:
+  gnn_type: 'ResGatedGCN'
+  num_layers: 4
+  node_hidden_channels: 128
+  edge_hidden_channels: 128
+  bidirected: True
+  add_self_loops: False
+  residual: True
+  edge_model: True
+  add_mask_attr: True
+  pos_enc: 'laplacian'
+  pos_enc_dim: 16
+
+diffusion:
+  diffusion_steps: 1000 
+  noise_schedule: 'cosine'
+
+train:
+  graph_weight: 0.5
+  num_epochs: 4000
+  batch_size: 1
+  lr: 2e-4
+  weight_decay: 1e-10
+  accelerator: 'gpu'
+  examples_to_generate: 200
+
+test:
+  concealer_ckpt: 'src/concealer/ckpt/atlas-sgat.ckpt'
+  binding_site_ckpt: 'src/predictor/ckpt/binding_site/atlas-sgat.ckpt'
+  concealer_size_ckpt: 'src/predictor/ckpt/concealer_size/atlas-sgat.ckpt'
