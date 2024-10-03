@@ -141,8 +141,7 @@ def supply_preprocess(raw_dir=None):
                 nx_graph = nx.convert_node_labels_to_integers(nx_graph.subgraph(largest_cc).copy())
             # save nx_digraph to *.blosc file
             graph_path.unlink()
-            with graph_path.with_suffix('.blosc').open('wb') as fw:
-                blosc_pkl_dump(nx_graph, fw)
+            blosc_pkl_dump(nx_graph, graph_path.with_suffix('.blosc'))
 
     # 4. save original graph names
     name_path = graph_path.parents[1].joinpath('graph_names.txt')
