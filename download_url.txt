@@ -6,3 +6,6 @@ https://drive.google.com/file/d/1PDS6M-J9GGUmpl_C4ZxDF4BtAaN-t0jf/view?usp=shari
 
 [Optional] Raw SupplyChain Dataset Files
 https://drive.google.com/file/d/1ArrfcocBpGYqGTPUea5lcreSpG8VZ5bJ/view?usp=sharing
+
+[Optional] Raw Atlas Dataset Files
+https://github.com/purseclab/ATLAS/tree/main/raw_logs
