@@ -1,4 +1,3 @@
-import pickle as pkl
 import re
 from pathlib import Path
 
@@ -9,6 +8,8 @@ import torch
 from gensim.models import Word2Vec
 from torch_geometric.data import Data
 from torch_geometric.utils import from_networkx, one_hot
+
+from blosc_compress import blosc_pkl_dump
 
 # Node Types
 ATLAS_NTYPES = [
@@ -337,15 +338,13 @@ def atlas_preprocess(raw_dir=None):
                     nx_graph.add_edge(src_id, dst_id, etype=ATLAS_ETYPES.index(etype))
         # 2.3 save malicious graph
         malicious_nodes = set([node for node, ntype in nx_graph.nodes(data=True) if ntype['label']])
-        with anomaly_dir.joinpath(graph_path.with_suffix('.pkl').name).open('wb') as fw:
-            pkl.dump(nx_graph, fw)
+        blosc_pkl_dump(nx_graph, anomaly_dir.joinpath(graph_path.with_suffix('.blosc').name))
         # 2.4 save benign graph
         nx_graph.remove_nodes_from(malicious_nodes)
         if not nx.is_weakly_connected(nx_graph):
             largest_cc = max(nx.weakly_connected_components(nx_graph), key=len)
             nx_graph = nx.convert_node_labels_to_integers(nx_graph.subgraph(largest_cc).copy())
-        with benign_dir.joinpath(graph_path.with_suffix('.pkl').name).open('wb') as fw:
-            pkl.dump(nx_graph, fw)
+        blosc_pkl_dump(nx_graph, benign_dir.joinpath(graph_path.with_suffix('.blosc').name))
 
     # 3. Done
     print(f'Done. The processed Atlas Dataset directory is located at: {processed_dir}')
