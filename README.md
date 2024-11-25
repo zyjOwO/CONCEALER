@@ -23,6 +23,6 @@ Training:  src/concealer/train_concealer.py
 Testing:   src/concealer/test_concealer.py
 
 ## NOTE
-The source code supported only the SupplyChain Dataset. We will support the Atlas Dataset after a few weeks of careful checking.
+The source code supported only the SupplyChain Dataset. We will support the Atlas and StreamSpot Datasets after a careful checking.
 
 We have provided optional resources (e.g., adversarial graphs and raw dataset files), which can be downloaded according to a download_url.txt.
